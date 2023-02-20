@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% if title %}
+            <title>OCR-{{ title }}</title>
+        {% else %}
+            <title>OCR</title>
+        {% endif %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+        <!-- google fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500&family=Lato:wght@300;400;700;900&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+        <!-- dropzone -->
+        {{ dropzone.load_css() }}
+        {{ dropzone.style('border: 2px dashed #0087F7; margin: 2% 10% 2% 10%; min-height: 400px;') }}
+
+        <style>
+            body{
+                background-color: #dbdddd;
+            }
+
+            .navbar {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: space-between;
+                background-color: black;
+            }
+
+            .navbar ul {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                margin: 0 35px;
+            }
+
+            .navbar li {
+                list-style: none;
+                margin: 10px 7px;
+                padding: 7px 0px;
+            }
+
+            .navbar li a {
+                text-decoration: none;
+                color: white;
+                padding: 12px 5px;
+                font-size: 1rem;
+                font-weight: bold;
+                font-family: 'Montserrat', sans-serif;
+            }
+
+            .navbar li a:hover {
+                color: #008df0;
+            }
+
+            .navbar h2 {
+                margin: 0 35px;
+                font-size: 1.8rem;
+                font-family: 'Lato', sans-serif;
+                color: white;
+            }
+
+            .hamburger {
+                display: none;
+                cursor: pointer;
+            }
+
+            .bar {
+                display: block;
+                width: 25px;
+                height: 3px;
+                margin: 5px auto;
+                -webkit-transition: all 0.3s ease-in-out;
+                transition: all 0.3s ease-in-out;
+                background-color: rgb(0, 0, 0);
+            }
+
+            @media screen and (max-width: 500px) {
+                .hamburger {
+                    display: block !important;
+                    margin: 20px !important;
+                }
+
+                .hamburger.active .bar:nth-child(2) {
+                    opacity: 0 !important;
+                }
+
+                .hamburger.active .bar:nth-child(1) {
+                    transform: translateY(8px) rotate(45deg) !important;
+
+                }
+
+                .hamburger.active .bar:nth-child(3) {
+                    transform: translateY(-8px) rotate(-45deg) !important;
+
+                }
+
+                .nav-ul {
+                    position: fixed !important;
+                    left: -115% !important;
+                    top: 80px !important;
+                    gap: 0 !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    background-color: white !important;
+                    width: 100% !important;
+                    height: 100vh !important;
+                    text-align: center !important;
+                    transition: 0.3s !important;
+                    padding: 30px 0px !important;
+                    z-index: 2 !important;
+                }
+
+                .nav-item {
+                    margin: 11px 0 !important;
+                }
+
+                .nav-ul.active {
+                    left: -35px !important;
+                }
+
+                .navbar h2 {
+                    font-size: 1.2rem !important;
+                    margin: 0 20px;
+                }
+
+                .navbar li a{
+                    color: black;
+                }
+
+                .bar {
+                    background-color: white !important;
+                }
+
+                .d-block {
+                    width: 250px;
+                    height: 225px;
+                }
+
+                .main-heading {
+                    font-size: 1.2rem !important;
+                }
+
+                .dropzone {
+                    min-height: 250px !important;
+                }
+
+                .card-body {
+                    font-family: 'lato', sans-serif;
+                }
+
+                textarea.form-control-sm {
+                    margin: 10px 0;
+                }
+
+                .input-group-text {
+                    margin-bottom: 10px 
+                }
+
+                select {
+                    border: 1px solid black;
+                    padding: 5px;
+                }
+
+                audio {
+                    width: 275px;
+                }
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <nav class="navbar">
+            <div class="div">
+                <div>
+
+                </div>
+                <h2>Sumit Sourav Choudhury</h2>
+            </div>
+            <ul class="nav-ul">
+                <li class="nav-item"><a href="Home.html">HOME</a></li>
+                <li class="nav-item"><a href="Resume.html">RESUME</a></li>
+                <li class="nav-item"><a href="Project.html">PROJECT</a></li>
+                <li class="nav-item"><a href="Contact.html">CONTACT</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+
+        <script>
+            const hamburger = document.querySelector(".hamburger");
+            const navMenu = document.querySelector(".nav-ul");
+
+            hamburger.addEventListener("click", () => {
+                hamburger.classList.toggle("active");
+                navMenu.classList.toggle("active");
+            });
+
+            document.querySelectorAll("nav-link").forEach(n => n.addEventListener("click", () => {
+                hamburger.classList.remove("active");
+                navMenu.classList.remove("active");
+            }))
+        </script>
+
+        <!-- sweetalerts -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>
+
+

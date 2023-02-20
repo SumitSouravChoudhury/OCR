@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="d-flex justify-content-center text-center mt-4">
+    <h4>Drop Image File To Get Translation</h4>
+</div>
+{{ dropzone.create(action='upload') }}
+{{ dropzone.load_js() }}
+{{ dropzone.config() }}
+
+{% endblock %}
