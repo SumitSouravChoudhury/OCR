@@ -20,6 +20,13 @@ from . import utils
 def index():
     return render_template("index.html", title="Home Page")
 
+@app.route("/about")
+def about():
+    return render_template("about.html", title="About Us")
+
+@app.route("/service")
+def service():
+    return render_template("service.html", title="Services")
 
 @app.route("/upload", methods=["GET", "POST"])
 def upload():

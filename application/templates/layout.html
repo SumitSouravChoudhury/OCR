@@ -22,11 +22,35 @@
 
         <!-- dropzone -->
         {{ dropzone.load_css() }}
-        {{ dropzone.style('border: 2px dashed #0087F7; margin: 2% 10% 2% 10%; min-height: 400px;') }}
+        {{ dropzone.style('border: 2px dashed #0087F7; margin: 2% 10% 2% 10%; min-height: 400px; width: 600px; display: flex; justify-content: center; align-items: center;') }}
 
         <style>
             body{
                 background-color: #dbdddd;
+            }
+
+            .container {
+                display: flex;
+                flex-wrap:wrap;
+                justify-content: center;
+                align-items:center;
+                min-height: 80vh;
+                margin-bottom: 20px;
+            }
+
+            .container2 {
+                display: flex;
+                flex-wrap:wrap;
+                justify-content: center;
+                align-items:center;
+                padding-top: 20px;
+            }
+
+            .col-md-10 {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
             }
 
             .navbar {
@@ -63,11 +87,12 @@
                 color: #008df0;
             }
 
-            .navbar h2 {
+            .navbar h2 a {
                 margin: 0 35px;
                 font-size: 1.8rem;
                 font-family: 'Lato', sans-serif;
                 color: white;
+                text-decoration: none;
             }
 
             .hamburger {
@@ -83,6 +108,30 @@
                 -webkit-transition: all 0.3s ease-in-out;
                 transition: all 0.3s ease-in-out;
                 background-color: rgb(0, 0, 0);
+            }
+
+            .mt-4 {
+                min-width: 600px;
+            }
+
+            .form-control-sm {
+                margin-bottom: 15px;
+            }
+
+            .foot {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                background-color: black;
+                color: white;
+                padding: 20px;
+            }
+
+            .foot h2 {
+                font-family: 'Lato', sans-serif;
+                font-size: 1.5rem;
+                margin: 0;
             }
 
             @media screen and (max-width: 500px) {
@@ -129,7 +178,7 @@
                     left: -35px !important;
                 }
 
-                .navbar h2 {
+                .navbar h2 a{
                     font-size: 1.2rem !important;
                     margin: 0 20px;
                 }
@@ -138,13 +187,42 @@
                     color: black;
                 }
 
+                .row {
+                    max-width: 300px !important;
+                }
+
+                .container {
+                    padding: 0 !important;
+                }
+
+                .container2 {
+                    padding-top: 40px;
+                    padding-bottom: 10px;
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+
+                .mt-4 {
+                    min-width: 0;
+                    flex-direction: column;
+                }
+
+                .col-md-10 {
+                    padding: 0 !important;
+                }
+
                 .bar {
                     background-color: white !important;
                 }
 
+                .foot h2 {
+                    text-align: center !important;
+                    font-size: 1rem !important;
+                }
+
                 .d-block {
-                    width: 250px;
-                    height: 225px;
+                    width: 275px;
+                    height: 200px;
                 }
 
                 .main-heading {
@@ -153,10 +231,22 @@
 
                 .dropzone {
                     min-height: 250px !important;
+                    margin: 2% 5% 2% 5%;
+                    max-width: 275px !important;
                 }
 
                 .card-body {
                     font-family: 'lato', sans-serif;
+                }
+
+                .card {
+                    margin: 20px 0 !important;
+                    width: 250px !important;
+                }
+
+                .card-img-top {
+                    height: 200px;
+                    margin: 10px 0;
                 }
 
                 textarea.form-control-sm {
@@ -186,13 +276,12 @@
                 <div>
 
                 </div>
-                <h2>Sumit Sourav Choudhury</h2>
+                <h2><a href="/">Vision <sup>AI<sup></a></h2>
             </div>
             <ul class="nav-ul">
-                <li class="nav-item"><a href="Home.html">HOME</a></li>
-                <li class="nav-item"><a href="Resume.html">RESUME</a></li>
-                <li class="nav-item"><a href="Project.html">PROJECT</a></li>
-                <li class="nav-item"><a href="Contact.html">CONTACT</a></li>
+                <li class="nav-item"><a href="/">HOME</a></li>
+                <li class="nav-item"><a href="/service">SERVICES</a></li>
+                <li class="nav-item"><a href="/about">ABOUT US</a></li>
             </ul>
             <div class="hamburger">
                 <span class="bar"></span>
@@ -203,6 +292,8 @@
 
         <div class="container">
             <div class="row">
+                {% block cont %}
+                {% endblock %}
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
                     {% block content %}
@@ -212,7 +303,17 @@
             </div>
         </div>
 
+        <footer>
+            <div class="foot">
+                <h2>&copy; By Sumit Sourav Choudhury <span id="year"></span> | All Rights Reserved</h2>
+            </div>
+        </footer>
+
         <script>
+
+            var Year = new Date().getFullYear();
+            document.getElementById('year').innerHTML= Year;
+
             const hamburger = document.querySelector(".hamburger");
             const navMenu = document.querySelector(".nav-ul");
 
