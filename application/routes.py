@@ -4,15 +4,12 @@ from .forms import QRCodeData
 import secrets
 import os
 
-# OCR
 import cv2
 import pytesseract
 from PIL import Image
 import numpy as np
-# pip install gTTS
 from gtts import gTTS
 
-# import utils
 from . import utils
 
 
@@ -32,7 +29,6 @@ def service():
 def upload():
     if request.method == 'POST':
 
-        # set a session value
         sentence = ""
         
         f = request.files.get('file')
@@ -44,9 +40,6 @@ def upload():
 
         f.save(file_location)
 
-        # print(file_location)
-
-        # OCR here
         pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
 
         img = cv2.imread(file_location)
@@ -54,23 +47,17 @@ def upload():
 
 
         boxes = pytesseract.image_to_data(img)
-        # print(boxes)
     
         for i, box in enumerate(boxes.splitlines()):
             if i == 0:
                 continue
 
             box = box.split()
-            # print(box)
-
-            # only deal with boxes with word in it.
             if len(box) == 12:
                 sentence += box[11] + " "
        
-        #print(sentence)
         session["sentence"] = sentence
 
-        # delete file after you are done working with it
         os.remove(file_location)
 
         return redirect("/decoded/")
@@ -83,11 +70,8 @@ def upload():
 def decoded():
 
     sentence = session.get("sentence")
-    # print(sentence)
 
-    # print(lang)
     lang, _ = utils.detect_language(sentence)
-    # print(lang, conf)
     
 
     form =QRCodeData() 
@@ -96,7 +80,6 @@ def decoded():
         generated_audio_filename = secrets.token_hex(10) + ".mp4"
         text_data = form.data_field.data
         translate_to = form.language.data
-        # print("Data here", translate_to)
 
   
         translated_text = utils.translate_text(text_data, translate_to)
@@ -110,10 +93,8 @@ def decoded():
                             generated_audio_filename
                         )
 
-        # save file as audio
         tts.save(file_location)
 
-        # return redirect("/audio_download/" + generated_audio_filename)
 
         form.data_field.data = translated_text
 
@@ -125,12 +106,8 @@ def decoded():
                         file = generated_audio_filename
                     )
 
-
-    # form.data_field.data = sentence
     form.data_field.data = sentence
 
-    # set the sentence back to defautl blank
-    # sentence = ""
     session["sentence"] = ""
 
     return render_template("decoded.html", 

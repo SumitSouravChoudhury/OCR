@@ -1,13 +1,10 @@
-# pip install googletrans==3.1.0a0
 from cv2 import triangulatePoints
 from googletrans import Translator
 
 translator = Translator()
 
 def detect_language(text):
-    # get language used
     detected_lang_data = translator.detect(text)
-    # print(lang)
     lang = detected_lang_data.lang
     conf = detected_lang_data.confidence
 
