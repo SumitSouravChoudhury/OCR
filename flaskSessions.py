@@ -11,7 +11,7 @@ Session(app)
 @app.route('/set/<string:value>')
 def set_session(value):
     session['key'] = value
-    return "<h3>Ok</h3>"
+    return "<h3>OK</h3>"
 
 @app.route('/get/')
 def get_session():
